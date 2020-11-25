@@ -1,0 +1,42 @@
+@media screen and (min-width: 401px) and (max-width: 450px) {
+  .searchPage__header {
+    padding: 14px 22px 0 0px;
+  }
+
+  .searchPage__headerLower {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    .lowerHeader__left {
+      margin-left: 8px;
+    }
+
+    .lowerHeader__right {
+      margin-left: 35px;
+    }
+  }
+
+  .google__searchPage__logo {
+    height: 31px;
+    margin-right: 13px;
+  }
+
+  .searchPage__header__searchBar {
+    max-width: 350px;
+    margin-top: -1px;
+  }
+
+  .searchPage__headerTop__thirdSec {
+    margin-left: 3rem;
+  }
+
+  .searchPage__results {
+    max-width: 650px;
+    margin: 0px 10px 100px 13px;
+  }
+
+  .searchResult__description {
+    margin-top: 8px;
+  }
+}
