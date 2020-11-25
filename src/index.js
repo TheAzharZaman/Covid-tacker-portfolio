@@ -1,17 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import RootApp from "./App";
-import reducer, { initialState } from "./files/reducer";
-import { StateProvider } from "./files/StateProvider";
+import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-let RootDirectory = document.getElementById("Root");
+let RootDirectory = document.getElementById("root");
 
 ReactDOM.render(
   <React.StrictMode>
-    <StateProvider initialState={initialState} reducer={reducer}>
-      <RootApp />
-    </StateProvider>
+    <App />
   </React.StrictMode>,
   RootDirectory
 );
