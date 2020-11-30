@@ -75,7 +75,7 @@ const App = () => {
           <div className="flexRow evenly center">
             <div className="account flexRow evenly center">
               <h3>Azhar Zaman</h3>
-              <Avatar />
+              <Avatar src="https://lh3.googleusercontent.com/ogw/ADGmqu8ke_KgtPSinHyRfqKhkzdggOOAkcLKrgW6E86ghg=s32-c-mo" />
             </div>
 
             <FormControl className="header__dropdown">
