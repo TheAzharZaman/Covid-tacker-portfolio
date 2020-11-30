@@ -1,0 +1,54 @@
+.app__header {
+  background-color: white;
+  margin: 0 0.95rem;
+  margin-bottom: 25px;
+  border-radius: 7px;
+}
+
+.logo {
+  width: 170px;
+}
+
+.account > h3 {
+  font-size: 15.5px;
+  color: rgb(87, 87, 87);
+  margin-right: 10px;
+  font-weight: 400;
+}
+
+.MuiAvatar-root {
+  width: 42.5px !important;
+  height: 42.5px !important;
+  margin-right: 1.65rem;
+}
+
+.dropdown__flagGlobal {
+  width: 20px;
+  margin-right: 8px;
+  margin-top: 2px;
+}
+
+.dropdown__flag {
+  width: 20px;
+  margin-right: 15px;
+  margin-top: 2px;
+}
+
+.header__dropdownBox {
+  margin-right: 1.1rem;
+  display: flex !important;
+  align-items: center !important;
+
+  img {
+    margin-right: 11px;
+  }
+
+  .dropdown__flagGlobal {
+    display: none;
+  }
+}
+
+.listItem {
+  display: flex !important;
+  align-items: center !important;
+}

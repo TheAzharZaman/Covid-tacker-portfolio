@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+@import "./generic";
+@import "./header";
+@import "./appStats";
+@import "./map";
+
+.app {
+  padding: 20px;
+}
+
+.app__left {
+  flex: 0.765;
+  padding: 0 1.5rem;
+}
+
+.app__right {
+  flex: 0.235;
+  padding: 0 1rem;
+}

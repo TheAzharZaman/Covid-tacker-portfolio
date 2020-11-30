@@ -1,0 +1,30 @@
+.app__stats {
+  margin: 0 1rem;
+}
+
+.infoCard {
+  padding: 0.25rem 1rem;
+  flex: 0.18;
+  margin-right: 12px;
+
+  &:nth-child(5) {
+    margin-right: 0;
+  }
+}
+
+.infoCard__title {
+  color: rgb(56, 56, 56);
+  font-size: 18px;
+}
+
+.infoCard__plus {
+  font-size: 15px;
+  margin-top: 15px;
+  color: rgb(104, 104, 104);
+}
+
+.infoCard__total {
+  font-size: 15px;
+  margin-top: 15px;
+  color: rgb(58, 58, 58);
+}

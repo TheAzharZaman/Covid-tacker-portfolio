@@ -1,1 +1,181 @@
-/* No CSS *//*# sourceMappingURL=App.css.map */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif !important;
+}
+
+body {
+  background-color: #f5f6fa;
+}
+
+li {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.flexRow {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.flexColumn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.center {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.between {
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.evenly {
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.app__header {
+  background-color: white;
+  margin: 0 0.95rem;
+  margin-bottom: 25px;
+  border-radius: 7px;
+}
+
+.logo {
+  width: 170px;
+}
+
+.account > h3 {
+  font-size: 15.5px;
+  color: #575757;
+  margin-right: 10px;
+  font-weight: 400;
+}
+
+.MuiAvatar-root {
+  width: 42.5px !important;
+  height: 42.5px !important;
+  margin-right: 1.65rem;
+}
+
+.dropdown__flagGlobal {
+  width: 20px;
+  margin-right: 8px;
+  margin-top: 2px;
+}
+
+.dropdown__flag {
+  width: 20px;
+  margin-right: 15px;
+  margin-top: 2px;
+}
+
+.header__dropdownBox {
+  margin-right: 1.1rem;
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center !important;
+      -ms-flex-align: center !important;
+          align-items: center !important;
+}
+
+.header__dropdownBox img {
+  margin-right: 11px;
+}
+
+.header__dropdownBox .dropdown__flagGlobal {
+  display: none;
+}
+
+.listItem {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -webkit-box-align: center !important;
+      -ms-flex-align: center !important;
+          align-items: center !important;
+}
+
+.app__stats {
+  margin: 0 1rem;
+}
+
+.infoCard {
+  padding: 0.25rem 1rem;
+  -webkit-box-flex: 0.18;
+      -ms-flex: 0.18;
+          flex: 0.18;
+  margin-right: 12px;
+}
+
+.infoCard:nth-child(5) {
+  margin-right: 0;
+}
+
+.infoCard__title {
+  color: #383838;
+  font-size: 18px;
+}
+
+.infoCard__plus {
+  font-size: 15px;
+  margin-top: 15px;
+  color: #686868;
+}
+
+.infoCard__total {
+  font-size: 15px;
+  margin-top: 15px;
+  color: #3a3a3a;
+}
+
+.map {
+  margin-top: 3rem;
+  margin-left: 1rem;
+}
+
+.app {
+  padding: 20px;
+}
+
+.app__left {
+  -webkit-box-flex: 0.765;
+      -ms-flex: 0.765;
+          flex: 0.765;
+  padding: 0 1.5rem;
+}
+
+.app__right {
+  -webkit-box-flex: 0.235;
+      -ms-flex: 0.235;
+          flex: 0.235;
+  padding: 0 1rem;
+}
+/*# sourceMappingURL=App.css.map */
