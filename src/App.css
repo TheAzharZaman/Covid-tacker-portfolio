@@ -163,6 +163,50 @@ img {
   margin-left: 1rem;
 }
 
+.appRight__top h3,
+.appRight__bottom h3 {
+  font-size: 18px;
+  text-align: center;
+}
+
+.appRight__top {
+  margin-top: 1rem;
+}
+
+.table {
+  margin-top: 15px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 375px;
+  color: #6a5d5d;
+}
+
+.table::-webkit-scrollbar {
+  display: none !important;
+}
+
+.tableRow {
+  padding: 6px 7.5px;
+}
+
+.tableRow td {
+  font-size: 16px;
+}
+
+.tableRow strong {
+  color: #7c7c7c;
+  font-size: 14.5px;
+}
+
+.tableRow:nth-of-type(odd) {
+  background-color: #f3f2f8;
+}
+
+.appRight__bottom {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
 .app {
   padding: 20px;
 }

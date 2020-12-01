@@ -4,11 +4,16 @@ import WorldwideIcon from "./worldwideIcon.png";
 import { FormControl, Select, MenuItem, Card, Avatar } from "@material-ui/core";
 import InfoBox from "./Components/InfoBox";
 import Map from "./Components/Map";
+import Table from "./Components/Table";
+import LineGraph from "./Components/LineGraph";
+
+import { sortData, NormalFiguresToCommas } from "./Files/utilities";
 
 const App = () => {
   const [countryNames, setCountryNames] = React.useState([]);
   const [selectedCountry, setSelectedCountry] = React.useState("worldwide");
   const [countryInfo, setCountryInfo] = React.useState({});
+  const [tableListData, setTableListData] = React.useState([]);
 
   React.useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -28,6 +33,9 @@ const App = () => {
             code: country.countryInfo.iso2,
             flagSrc: country.countryInfo.flag,
           }));
+
+          const sortedData = sortData(data);
+          setTableListData(sortedData);
           setCountryNames(countries);
         });
     };
@@ -55,14 +63,6 @@ const App = () => {
   };
 
   console.log("Country Info Fetched Successfully =>>>", countryInfo);
-
-  function ConvertToCommas(x) {
-    x = parseInt(x);
-    x = x.toString();
-    var pattern = /(-?\d+)(\d{3})/;
-    while (pattern.test(x)) x = x.replace(pattern, "$1,$2");
-    return x;
-  }
 
   return (
     <div className="app flexRow">
@@ -106,41 +106,47 @@ const App = () => {
           <InfoBox
             title="Cases"
             plus={countryInfo.todayCases}
-            total={ConvertToCommas(countryInfo.cases)}
+            total={NormalFiguresToCommas(countryInfo.cases)}
           />
           <InfoBox
             title="Active"
             plus={countryInfo.active}
-            total={ConvertToCommas(countryInfo.activePerOneMillion)}
+            total={NormalFiguresToCommas(countryInfo.activePerOneMillion)}
             hideTotal
             hidePlus
           />
           <InfoBox
             title="Recovered"
             plus={countryInfo.todayRecovered}
-            total={ConvertToCommas(countryInfo.recovered)}
+            total={NormalFiguresToCommas(countryInfo.recovered)}
           />
           <InfoBox
             title="Criticals"
             plus={countryInfo.critical}
-            total={ConvertToCommas(countryInfo.criticalPerOneMillion)}
+            total={NormalFiguresToCommas(countryInfo.criticalPerOneMillion)}
             hideTotal
             hidePlus
           />
           <InfoBox
             title="Deaths"
             plus={countryInfo.todayDeaths}
-            total={ConvertToCommas(countryInfo.deaths)}
+            total={NormalFiguresToCommas(countryInfo.deaths)}
           />
         </div>
 
         {/* App Map */}
 
-        <Map />
+        {/* <Map /> */}
       </div>
       <Card className="app__right flexColumn evenly center">
-        <h3>List of Countries</h3>
-        <h3>Graphical Representation</h3>
+        <div className="appRight__top">
+          <h3>Live Cases by Countries</h3>
+          <Table listData={tableListData} />
+        </div>
+        <div className="appRight__bottom">
+          <h3>Worldwide New Cases</h3>
+          <LineGraph />
+        </div>
       </Card>
     </div>
   );
