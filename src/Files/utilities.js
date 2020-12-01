@@ -1,3 +1,5 @@
+import numeral from "numeral";
+
 export const sortData = (data) => {
   const sortedData = [...data];
 
@@ -11,4 +13,20 @@ export const NormalFiguresToCommas = (x) => {
   while (pattern.test(x)) x = x.replace(pattern, "$1,$2");
   return x;
 };
-// ........
+// .......
+
+export const prettyPrintStatPlus = (stat) => {
+  if (stat > 10000) {
+    return stat ? `+${numeral(stat).format("0.0a")}` : "+0";
+  } else {
+    return `+${NormalFiguresToCommas(stat)}`;
+  }
+};
+
+export const prettyPrintStat = (stat) => {
+  if (stat > 10000) {
+    return stat ? `${numeral(stat).format("0.0a")}` : "+0";
+  } else {
+    return NormalFiguresToCommas(stat);
+  }
+};

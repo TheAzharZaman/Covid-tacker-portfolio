@@ -1,8 +1,7 @@
 .app__header {
-  background-color: white;
-  margin: 0 0.95rem;
   margin-bottom: 25px;
   border-radius: 7px;
+  z-index: 10;
 }
 
 .logo {
@@ -39,6 +38,7 @@
   margin-right: 1.1rem;
   display: flex !important;
   align-items: center !important;
+  z-index: 11 !important;
 
   img {
     margin-right: 11px;
@@ -52,4 +52,6 @@
 .listItem {
   display: flex !important;
   align-items: center !important;
+  font-family: "Inter", sans-serif !important;
+  z-index: 12 !important;
 }

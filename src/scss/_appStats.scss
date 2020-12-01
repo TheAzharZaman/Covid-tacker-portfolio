@@ -1,5 +1,5 @@
 .app__stats {
-  margin: 0 1rem;
+  margin: 0rem 1rem 1rem;
 }
 
 .infoCard {
@@ -13,18 +13,21 @@
 }
 
 .infoCard__title {
-  color: rgb(56, 56, 56);
+  font-family: "Poppins", sans-serif;
+  color: #6c757d;
   font-size: 18px;
+  font-weight: 700;
 }
 
 .infoCard__plus {
-  font-size: 15px;
+  color: #cc1034;
+  font-size: 22px;
   margin-top: 15px;
-  color: rgb(104, 104, 104);
 }
 
 .infoCard__total {
+  color: #6c757d;
   font-size: 15px;
+  font-weight: 700;
   margin-top: 15px;
-  color: rgb(58, 58, 58);
 }

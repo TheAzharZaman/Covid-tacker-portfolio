@@ -3,11 +3,15 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Inter", sans-serif !important;
+  font-family: "Inter", sans-serif;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 body {
-  background-color: #f5f6fa;
+  background-color: #f3f3f3f3;
 }
 
 li {
@@ -61,11 +65,14 @@ img {
           justify-content: space-evenly;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 .app__header {
-  background-color: white;
-  margin: 0 0.95rem;
   margin-bottom: 25px;
   border-radius: 7px;
+  z-index: 10;
 }
 
 .logo {
@@ -106,6 +113,7 @@ img {
   -webkit-box-align: center !important;
       -ms-flex-align: center !important;
           align-items: center !important;
+  z-index: 11 !important;
 }
 
 .header__dropdownBox img {
@@ -123,10 +131,12 @@ img {
   -webkit-box-align: center !important;
       -ms-flex-align: center !important;
           align-items: center !important;
+  font-family: "Inter", sans-serif !important;
+  z-index: 12 !important;
 }
 
 .app__stats {
-  margin: 0 1rem;
+  margin: 0rem 1rem 1rem;
 }
 
 .infoCard {
@@ -142,43 +152,68 @@ img {
 }
 
 .infoCard__title {
-  color: #383838;
+  font-family: "Poppins", sans-serif;
+  color: #6c757d;
   font-size: 18px;
+  font-weight: 700;
 }
 
 .infoCard__plus {
-  font-size: 15px;
+  color: #cc1034;
+  font-size: 22px;
   margin-top: 15px;
-  color: #686868;
 }
 
 .infoCard__total {
+  color: #6c757d;
   font-size: 15px;
+  font-weight: 700;
   margin-top: 15px;
-  color: #3a3a3a;
 }
 
 .map {
-  margin-top: 3rem;
-  margin-left: 1rem;
+  border: 1px solid #cfcfcf;
+  padding: 3.45rem 0 3.45rem 1rem;
+  margin: 0 1rem;
+  border-radius: 4px;
+  background-color: white;
+  cursor: crosshair;
 }
 
-.appRight__top h3,
-.appRight__bottom h3 {
-  font-size: 18px;
-  text-align: center;
+.app__right {
+  -webkit-box-flex: 0.235;
+      -ms-flex: 0.235;
+          flex: 0.235;
+  padding: 0rem;
+  -webkit-box-shadow: -2.5px -2.5px 10px -5px #c7c7c7 !important;
+          box-shadow: -2.5px -2.5px 10px -5px #c7c7c7 !important;
 }
 
 .appRight__top {
-  margin-top: 1rem;
+  -webkit-box-flex: 0.7;
+      -ms-flex: 0.7;
+          flex: 0.7;
+}
+
+.appRight__top h3 {
+  font-size: 18px;
+  font-family: "poppins", sans-serif;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0.35rem;
+}
+
+.app__right {
+  max-height: 96.5vh;
 }
 
 .table {
-  margin-top: 15px;
+  height: 372px;
+  color: #6a5d5d;
   overflow-x: hidden;
   overflow-y: scroll;
-  height: 375px;
-  color: #6a5d5d;
+  margin: 8px 1rem;
+  cursor: all-scroll;
 }
 
 .table::-webkit-scrollbar {
@@ -186,11 +221,11 @@ img {
 }
 
 .tableRow {
-  padding: 6px 7.5px;
+  padding: 4.5px 7.5px;
 }
 
 .tableRow td {
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .tableRow strong {
@@ -203,8 +238,52 @@ img {
 }
 
 .appRight__bottom {
-  margin-top: 1.25rem;
+  width: 96%;
+  background-color: #e0e0e0;
+  margin: 0 auto;
+  border-radius: 4px;
+  -webkit-box-flex: 0.25;
+      -ms-flex: 0.25;
+          flex: 0.25;
+}
+
+.graph__container {
+  padding: 0.85rem 1.55rem 0.35rem;
+  margin: 1rem 1rem 0;
+  border-radius: 3px;
+  background-color: #e0e0e0;
+}
+
+.graph__container h3 {
+  margin-top: 0rem;
   margin-bottom: 1.25rem;
+  font-size: 18px;
+  font-family: "poppins", sans-serif;
+  font-weight: 600;
+}
+
+.graph__container canvas {
+  max-height: 246px !important;
+  overflow-y: hidden;
+  cursor: crosshair;
+  margin-bottom: 0.25rem;
+}
+
+.sidebar__graphContainer {
+  padding: 0rem 0rem 0.45rem;
+  background-color: #e0e0e0;
+}
+
+.sidebar__graphContainer h3 {
+  text-align: center;
+}
+
+.sidebar__graphContainer canvas {
+  margin: -0.65rem 0 0.5rem -0.75rem;
+  width: 325px !important;
+  max-width: 109% !important;
+  overflow-x: hidden;
+  height: 230px !important;
 }
 
 .app {
@@ -212,16 +291,12 @@ img {
 }
 
 .app__left {
-  -webkit-box-flex: 0.765;
-      -ms-flex: 0.765;
-          flex: 0.765;
-  padding: 0 1.5rem;
-}
-
-.app__right {
-  -webkit-box-flex: 0.235;
-      -ms-flex: 0.235;
-          flex: 0.235;
+  -webkit-box-flex: 0.775;
+      -ms-flex: 0.775;
+          flex: 0.775;
   padding: 0 1rem;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  padding-bottom: 1rem;
 }
 /*# sourceMappingURL=App.css.map */

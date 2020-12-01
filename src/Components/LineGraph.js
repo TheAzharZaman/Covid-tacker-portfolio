@@ -47,7 +47,12 @@ const graphOpts = {
   },
 };
 
-const LineGraph = () => {
+const LineGraph = ({
+  setGraphType,
+  graphTagline,
+  graphDataDuration,
+  sideBarGraph,
+}) => {
   const [graphData, setGraphData] = React.useState({});
 
   const BuildChartData = (fetchedGraphData, dataType = "cases") => {
@@ -67,16 +72,14 @@ const LineGraph = () => {
     return builtGraphData;
   };
 
-  const GRAPH_DATA_API_URL =
-    "https://disease.sh/v3/covid-19/historical/all?lastdays=120";
+  const GRAPH_DATA_API_URL = `https://disease.sh/v3/covid-19/historical/all?lastdays=${graphDataDuration}`;
 
   React.useEffect(() => {
     const fetchGraphData = async () => {
       await fetch(GRAPH_DATA_API_URL)
         .then((response) => response.json())
         .then((fetchedGraphData) => {
-          let finalGraphData = BuildChartData(fetchedGraphData, "cases");
-          console.log("Heeeeeeeeeeeeeeeeeey", finalGraphData);
+          let finalGraphData = BuildChartData(fetchedGraphData, setGraphType);
           setGraphData(finalGraphData);
         });
     };
@@ -84,12 +87,19 @@ const LineGraph = () => {
     fetchGraphData();
   }, []);
 
-  //   console.log("This is the prepared graph data", graphData.lenght);
+  console.log("This is the prepared graph data, to be rendered", graphData);
 
   return (
-    <div>
+    <div
+      className={`graph__container ${
+        sideBarGraph && "sidebar__graphContainer"
+      }`}
+    >
+      <h3>{graphTagline}</h3>
+
       {graphData?.length > 0 && (
         <Line
+          className="graph"
           data={{
             datasets: [
               {

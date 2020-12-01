@@ -7,7 +7,12 @@ import Map from "./Components/Map";
 import Table from "./Components/Table";
 import LineGraph from "./Components/LineGraph";
 
-import { sortData, NormalFiguresToCommas } from "./Files/utilities";
+import {
+  sortData,
+  NormalFiguresToCommas,
+  prettyPrintStat,
+  prettyPrintStatPlus,
+} from "./Files/utilities";
 
 const App = () => {
   const [countryNames, setCountryNames] = React.useState([]);
@@ -36,6 +41,7 @@ const App = () => {
 
           const sortedData = sortData(data);
           setTableListData(sortedData);
+
           setCountryNames(countries);
         });
     };
@@ -52,9 +58,6 @@ const App = () => {
         ? "https://disease.sh/v3/covid-19/all"
         : `https://disease.sh/v3/covid-19/countries/${COUNTRY_CODE}`;
 
-    console.log("COUNTRY_CODE is =>>>", COUNTRY_CODE);
-    console.log("Fetch Response from this API_CALL", API_URL);
-
     await fetch(API_URL)
       .then((response) => response.json())
       .then((data) => {
@@ -70,12 +73,19 @@ const App = () => {
         {/* Header Section */}
 
         <div className="app__header flexRow between center">
-          <img className="logo" src={TrackerLogo} alt="COVID-19 TRACKER" />
+          <img
+            className="logo pointer"
+            src={TrackerLogo}
+            alt="COVID-19 TRACKER"
+          />
 
           <div className="flexRow evenly center">
             <div className="account flexRow evenly center">
               <h3>Azhar Zaman</h3>
-              <Avatar src="https://lh3.googleusercontent.com/ogw/ADGmqu8ke_KgtPSinHyRfqKhkzdggOOAkcLKrgW6E86ghg=s32-c-mo" />
+              <Avatar
+                className="pointer"
+                src="https://lh3.googleusercontent.com/ogw/ADGmqu8ke_KgtPSinHyRfqKhkzdggOOAkcLKrgW6E86ghg=s32-c-mo"
+              />
             </div>
 
             <FormControl className="header__dropdown">
@@ -105,47 +115,61 @@ const App = () => {
         <div className="app__stats flexRow between center">
           <InfoBox
             title="Cases"
-            plus={countryInfo.todayCases}
+            plus={prettyPrintStatPlus(countryInfo.todayCases)}
             total={NormalFiguresToCommas(countryInfo.cases)}
           />
-          <InfoBox
-            title="Active"
-            plus={countryInfo.active}
-            total={NormalFiguresToCommas(countryInfo.activePerOneMillion)}
-            hideTotal
-            hidePlus
-          />
+
           <InfoBox
             title="Recovered"
-            plus={countryInfo.todayRecovered}
+            plus={prettyPrintStatPlus(countryInfo.todayRecovered)}
             total={NormalFiguresToCommas(countryInfo.recovered)}
           />
+
+          <InfoBox
+            title="Deaths"
+            plus={prettyPrintStatPlus(countryInfo.todayDeaths)}
+            total={NormalFiguresToCommas(countryInfo.deaths)}
+          />
+
+          <InfoBox
+            title="Active"
+            plus={prettyPrintStat(countryInfo.active)}
+            total={NormalFiguresToCommas(countryInfo.activePerOneMillion)}
+            hideTotal
+          />
+
           <InfoBox
             title="Criticals"
-            plus={countryInfo.critical}
+            plus={prettyPrintStat(countryInfo.critical)}
             total={NormalFiguresToCommas(countryInfo.criticalPerOneMillion)}
             hideTotal
             hidePlus
           />
-          <InfoBox
-            title="Deaths"
-            plus={countryInfo.todayDeaths}
-            total={NormalFiguresToCommas(countryInfo.deaths)}
-          />
         </div>
-
-        {/* App Map */}
-
-        {/* <Map /> */}
+        <Map />
+        <LineGraph
+          graphDataDuration="100"
+          graphTagline="Worldwide New Cases"
+          setGraphType="cases"
+        />
+        <LineGraph
+          graphDataDuration="100"
+          graphTagline="Worldwide New Deaths"
+          setGraphType="deaths"
+        />
       </div>
-      <Card className="app__right flexColumn evenly center">
+      <Card className="app__right flexColumn">
         <div className="appRight__top">
           <h3>Live Cases by Countries</h3>
           <Table listData={tableListData} />
         </div>
         <div className="appRight__bottom">
-          <h3>Worldwide New Cases</h3>
-          <LineGraph />
+          <LineGraph
+            sideBarGraph
+            graphDataDuration="25"
+            graphTagline="Worldwide New Cases"
+            setGraphType="cases"
+          />
         </div>
       </Card>
     </div>
