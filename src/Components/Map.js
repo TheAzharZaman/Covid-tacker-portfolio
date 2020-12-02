@@ -1,9 +1,18 @@
 import React from "react";
-// import { MapComponent, TileLayer } from "react-leaflet";
-// // import "leaflet/dist/leaflet.css";
-
-const Map = () => {
-  return <div className="map">Here goes the map</div>;
+import { Map as LeafletMap, TileLayer } from "react-leaflet";
+import { showDataOnMap } from "../Files/utilities";
+const Map = ({ center, zoom, countries, mapType }) => {
+  return (
+    <div className="map">
+      <LeafletMap center={center} zoom={zoom}>
+        <TileLayer
+          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {showDataOnMap(countries, mapType)}
+      </LeafletMap>
+    </div>
+  );
 };
 
 export default Map;
