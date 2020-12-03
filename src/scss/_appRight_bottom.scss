@@ -8,12 +8,16 @@
 
 .graphButtons {
   margin: 0.75rem 0 1.25rem;
+}
 
-  button {
-    padding: 0.32rem 0.65rem;
-    margin-right: 0.5rem;
-    font-size: 13px;
-  }
+.graphSwitcherBtn {
+  padding: 0.45rem 0.75rem;
+  margin-right: 0.5rem;
+  font-size: 13px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  outline: none;
+  transition: background 0.25s, color 0.25s important;
 }
 
 .activeButton {

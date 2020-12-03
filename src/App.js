@@ -21,15 +21,14 @@ const App = () => {
   const [tableListData, setTableListData] = React.useState([]);
   const [mapCountries, setMapCountries] = React.useState([]);
   const [mapDisplayDataType, setMapDisplayDataType] = React.useState("cases");
-
+  const [graphDataType, setGraphDataType] = React.useState("cases");
   const [mapCenter, setMapCenter] = React.useState({
     lat: "41.3999",
     lng: "-4.2245",
   });
-
-  const [graphDataType, setGraphDataType] = React.useState("cases");
-
   const [mapZoom, setMapZoom] = React.useState(2.5);
+
+  const [graphDuration, setGraphDuration] = React.useState("150");
 
   React.useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -78,7 +77,37 @@ const App = () => {
       });
   };
 
-  // console.log("Country Info Fetched Successfully =>>>", countryInfo);
+  React.useEffect(() => {
+    let GraphsDataSwitcher = () => {
+      let CasesSwitch = document.getElementById("graphSwitcher__cases");
+
+      CasesSwitch.addEventListener("click", () => {
+        CasesSwitch.classList.add("activeButton");
+        RecoveredSwitch.classList.remove("activeButton");
+        DeathsSwitch.classList.remove("activeButton");
+        setGraphDataType("cases");
+      });
+
+      let RecoveredSwitch = document.getElementById("graphSwitcher__recovered");
+
+      RecoveredSwitch.addEventListener("click", () => {
+        CasesSwitch.classList.remove("activeButton");
+        RecoveredSwitch.classList.add("activeButton");
+        DeathsSwitch.classList.remove("activeButton");
+        setGraphDataType("recovered");
+      });
+
+      let DeathsSwitch = document.getElementById("graphSwitcher__deaths");
+      DeathsSwitch.addEventListener("click", () => {
+        CasesSwitch.classList.remove("activeButton");
+        RecoveredSwitch.classList.remove("activeButton");
+        DeathsSwitch.classList.add("activeButton");
+        setGraphDataType("deaths");
+      });
+    };
+
+    GraphsDataSwitcher();
+  }, []);
 
   return (
     <div className="app flexColumn">
@@ -134,6 +163,7 @@ const App = () => {
               onClick={(e) => {
                 setMapDisplayDataType("cases");
               }}
+              active={mapDisplayDataType === "cases"}
               title="Cases"
               plus={prettyPrintStatPlus(countryInfo.todayCases)}
               total={NormalFiguresToCommas(countryInfo.cases)}
@@ -143,6 +173,7 @@ const App = () => {
               onClick={(e) => {
                 setMapDisplayDataType("recovered");
               }}
+              active={mapDisplayDataType === "recovered"}
               title="Recovered"
               plus={prettyPrintStatPlus(countryInfo.todayRecovered)}
               total={NormalFiguresToCommas(countryInfo.recovered)}
@@ -152,6 +183,7 @@ const App = () => {
               onClick={(e) => {
                 setMapDisplayDataType("deaths");
               }}
+              active={mapDisplayDataType === "deaths"}
               title="Deaths"
               plus={prettyPrintStatPlus(countryInfo.todayDeaths)}
               total={NormalFiguresToCommas(countryInfo.deaths)}
@@ -191,25 +223,10 @@ const App = () => {
         </Card>
       </div>
       <div className="appBottom">
-        <h3 className="graphical__tagline">Graphical Stats</h3>
         <LineGraph
-          // needGraphSwitchingButtons
-          graphDataDuration="150"
-          needTagline
-          mapTagline="Worldwide New Cases"
-          setGraphType="cases"
-        />
-        <LineGraph
-          graphDataDuration="150"
-          needTagline
-          mapTagline="Worldwide New Recovered"
-          setGraphType="recovered"
-        />
-        <LineGraph
-          graphDataDuration="150"
-          needTagline
-          mapTagline="Worldwide New Deaths"
-          setGraphType="deaths"
+          needGraphSwitchingButtons
+          setGraphType={graphDataType}
+          graphDataDuration={graphDuration}
         />
       </div>
     </div>

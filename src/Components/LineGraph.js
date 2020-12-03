@@ -1,7 +1,6 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 import numeral from "numeral";
-import { Button } from "@material-ui/core";
 
 const graphOpts = {
   legend: {
@@ -38,7 +37,8 @@ const graphOpts = {
           display: false,
         },
         ticks: {
-          callback: function (value) {
+          // Include a dollar sign in the ticks
+          callback: function (value, index, values) {
             return numeral(value).format("0a");
           },
         },
@@ -58,7 +58,7 @@ const LineGraph = ({
 }) => {
   const [graphData, setGraphData] = React.useState({});
 
-  const BuildChartData = (fetchedGraphData, dataType = "cases") => {
+  const BuildChartData = (fetchedGraphData, dataType) => {
     let builtGraphData = [];
     let lastDataPoint;
 
@@ -88,7 +88,7 @@ const LineGraph = ({
     };
 
     fetchGraphData();
-  }, []);
+  }, [setGraphType]);
 
   return (
     <div
@@ -99,19 +99,27 @@ const LineGraph = ({
       {needTagline && <h3>{mapTagline}</h3>}
       {needGraphSwitchingButtons && (
         <div className="graphButtons">
-          <Button
+          <button
             id="graphSwitcher__cases"
-            className="activeButton"
+            className="graphSwitcherBtn activeButton"
             variant="outlined"
           >
             Cases
-          </Button>
-          <Button id="graphSwitcher__recovered" variant="outlined">
+          </button>
+          <button
+            className="graphSwitcherBtn"
+            id="graphSwitcher__recovered"
+            variant="outlined"
+          >
             Recovered
-          </Button>
-          <Button id="graphSwitcher__deaths" variant="outlined">
+          </button>
+          <button
+            className="graphSwitcherBtn"
+            id="graphSwitcher__deaths"
+            variant="outlined"
+          >
             Deaths
-          </Button>
+          </button>
         </div>
       )}
 

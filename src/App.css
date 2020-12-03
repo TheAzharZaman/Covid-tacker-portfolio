@@ -151,6 +151,10 @@ img {
   margin-right: 0;
 }
 
+.activeInfo__box {
+  border-top: 7.5px solid #a0f5f3;
+}
+
 .infoCard__title {
   font-family: "Poppins", sans-serif;
   color: #6c757d;
@@ -277,10 +281,15 @@ img {
   margin: 0.75rem 0 1.25rem;
 }
 
-.graphButtons button {
-  padding: 0.32rem 0.65rem;
+.graphSwitcherBtn {
+  padding: 0.45rem 0.75rem;
   margin-right: 0.5rem;
   font-size: 13px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  outline: none;
+  -webkit-transition: background 0.25s, color 0.25s important;
+  transition: background 0.25s, color 0.25s important;
 }
 
 .activeButton {
@@ -301,7 +310,7 @@ img {
 .graph__container {
   padding: 0.85rem 1.55rem 0.35rem;
   margin: 1rem 1rem 0;
-  border-radius: 3px;
+  border-radius: 5px;
   background-color: #e0e0e0;
 }
 
