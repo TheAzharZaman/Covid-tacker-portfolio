@@ -1,14 +1,7 @@
 import React from "react";
 import TrackerLogo from "./tracker_logo.png";
 import WorldwideIcon from "./worldwideIcon.png";
-import {
-  FormControl,
-  Select,
-  MenuItem,
-  Card,
-  Avatar,
-  TableBody,
-} from "@material-ui/core";
+import { FormControl, Select, MenuItem, Card, Avatar } from "@material-ui/core";
 import InfoBox from "./Components/InfoBox";
 import Map from "./Components/Map";
 import Table from "./Components/Table";
@@ -26,13 +19,15 @@ const App = () => {
   const [selectedCountry, setSelectedCountry] = React.useState("worldwide");
   const [countryInfo, setCountryInfo] = React.useState({});
   const [tableListData, setTableListData] = React.useState([]);
-
   const [mapCountries, setMapCountries] = React.useState([]);
+  const [mapDisplayDataType, setMapDisplayDataType] = React.useState("cases");
 
   const [mapCenter, setMapCenter] = React.useState({
     lat: "41.3999",
     lng: "-4.2245",
   });
+
+  const [graphDataType, setGraphDataType] = React.useState("cases");
 
   const [mapZoom, setMapZoom] = React.useState(2.5);
 
@@ -66,7 +61,6 @@ const App = () => {
 
   const onCountryChange = async (selectedCountryFromList) => {
     const COUNTRY_CODE = selectedCountryFromList.target.value;
-
     setSelectedCountry(COUNTRY_CODE);
 
     let API_URL =
@@ -84,7 +78,7 @@ const App = () => {
       });
   };
 
-  console.log("Country Info Fetched Successfully =>>>", countryInfo);
+  // console.log("Country Info Fetched Successfully =>>>", countryInfo);
 
   return (
     <div className="app flexColumn">
@@ -116,7 +110,7 @@ const App = () => {
                   onChange={onCountryChange}
                 >
                   <MenuItem className="listItem" value="worldwide">
-                    <img className="dropdown__flagGlobal" src={WorldwideIcon} />{" "}
+                    <img className="dropdown__flagGlobal" src={WorldwideIcon} />
                     Worldwide
                   </MenuItem>
                   {countryNames.map((countryName) => (
@@ -137,18 +131,27 @@ const App = () => {
 
           <div className="app__stats flexRow between center">
             <InfoBox
+              onClick={(e) => {
+                setMapDisplayDataType("cases");
+              }}
               title="Cases"
               plus={prettyPrintStatPlus(countryInfo.todayCases)}
               total={NormalFiguresToCommas(countryInfo.cases)}
             />
 
             <InfoBox
+              onClick={(e) => {
+                setMapDisplayDataType("recovered");
+              }}
               title="Recovered"
               plus={prettyPrintStatPlus(countryInfo.todayRecovered)}
               total={NormalFiguresToCommas(countryInfo.recovered)}
             />
 
             <InfoBox
+              onClick={(e) => {
+                setMapDisplayDataType("deaths");
+              }}
               title="Deaths"
               plus={prettyPrintStatPlus(countryInfo.todayDeaths)}
               total={NormalFiguresToCommas(countryInfo.deaths)}
@@ -163,7 +166,12 @@ const App = () => {
             />
           </div>
 
-          <Map center={mapCenter} zoom={mapZoom} countries={mapCountries} />
+          <Map
+            mapType={mapDisplayDataType}
+            center={mapCenter}
+            zoom={mapZoom}
+            countries={mapCountries}
+          />
         </div>
         <Card className="app__right flexColumn">
           <div className="appRight__top">
@@ -175,7 +183,9 @@ const App = () => {
               sideBarGraph
               graphDataDuration="25"
               graphTagline="Worldwide New Cases"
-              setGraphType="cases"
+              setGraphType={mapDisplayDataType}
+              needTagline
+              mapTagline="Worldwide New Deaths"
             />
           </div>
         </Card>
@@ -183,18 +193,22 @@ const App = () => {
       <div className="appBottom">
         <h3 className="graphical__tagline">Graphical Stats</h3>
         <LineGraph
+          // needGraphSwitchingButtons
           graphDataDuration="150"
-          graphTagline="Worldwide New Cases"
+          needTagline
+          mapTagline="Worldwide New Cases"
           setGraphType="cases"
         />
         <LineGraph
           graphDataDuration="150"
-          graphTagline="Worldwide New Recovered"
+          needTagline
+          mapTagline="Worldwide New Recovered"
           setGraphType="recovered"
         />
         <LineGraph
           graphDataDuration="150"
-          graphTagline="Worldwide New Deaths"
+          needTagline
+          mapTagline="Worldwide New Deaths"
           setGraphType="deaths"
         />
       </div>

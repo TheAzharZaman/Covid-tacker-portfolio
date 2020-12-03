@@ -1,9 +1,9 @@
 import React from "react";
 import { Card, CardContent } from "@material-ui/core";
 
-const InfoBox = ({ title, plus, total, hideTotal, hidePlus }) => {
+const InfoBox = ({ title, plus, total, hideTotal, ...props }) => {
   return (
-    <Card className="infoCard pointer">
+    <Card onClick={props.onClick} className="infoCard pointer">
       <CardContent>
         <h1 className="infoCard__title">{title}</h1>
         <h2 className="infoCard__plus">{plus}</h2>

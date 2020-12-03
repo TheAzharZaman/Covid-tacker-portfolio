@@ -43,11 +43,11 @@ const mapTypeColors = {
   },
   recovered: {
     hex: "#7dd71d",
-    multiplier: 900,
+    multiplier: 550,
   },
   deaths: {
     hex: "#fb4443",
-    multiplier: 1500,
+    multiplier: 1800,
   },
 };
 
@@ -73,8 +73,6 @@ export const showDataOnMap = (mapData, mapType = "cases") => {
               className="mapPopup__flag"
               style={{
                 backgroundImage: `url(${countryMapData.countryInfo.flag})`,
-                // width: "30px",
-                // height: "18px",
               }}
             />
             <div className="mapPopup__countryName">
