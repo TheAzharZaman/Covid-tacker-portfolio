@@ -1,0 +1,57 @@
+.login__cont {
+  background-color: white;
+  width: 22%;
+  margin: auto;
+  height: 57vh;
+  border-radius: 5.5px;
+  margin-top: 6rem;
+  box-shadow: 4px 4px 10px -3px rgba(0, 0, 0, 0.15),
+    -4px -4px 10px -3px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem 0.25rem;
+  text-align: center;
+}
+
+.login__cont > form {
+  margin-top: 0.65rem;
+  width: 100%;
+  margin-bottom: -1rem;
+}
+
+.login__cont > form > input {
+  height: 40px;
+  padding: 0 0.5rem;
+  margin-bottom: 1.5rem;
+  border: inset 1.25px rgba(0, 0, 0, 0.5);
+  width: 75%;
+  font-size: 15px;
+  outline: none;
+  border-radius: 3px;
+}
+
+.login__form > input:focus {
+  background-color: #f3f3f3;
+}
+
+.loginBtn {
+  width: 25%;
+  background-color: #c7284a !important;
+  color: white !important;
+  letter-spacing: 1px !important;
+}
+
+.logIn__googleSignIn {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 0rem 0.65rem 0 0;
+  overflow: hidden;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+}
+
+.logIn__googleSignIn > img {
+  width: 43px;
+  margin-right: 0.65rem;
+}
+
+.hideGuestTextBCZnoNameNoPhoto {
+  display: none;
+}

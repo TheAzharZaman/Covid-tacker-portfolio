@@ -1,0 +1,86 @@
+import React from "react";
+import "./Login.css";
+import { Button } from "@material-ui/core";
+import GoogleIcon from "./google.png";
+import { actionTypes } from "../Files/reducer";
+import { Link, useHistory } from "react-router-dom";
+import { auth, provider } from "../Files/firebase";
+import { useStateValue } from "../Files/StateProvider";
+
+const Login = () => {
+  let history = useHistory();
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  let [state, dispatch] = useStateValue();
+
+  let signIn = () => {
+    console.log("Visitors Email =>", email, "Visitors Password", password);
+
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then((authResponse) => {
+        console.log(authResponse);
+
+        dispatch({
+          type: actionTypes.SET_USER,
+          user: authResponse.user,
+        });
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  const continueWithGoogle = () => {
+    auth
+      .signInWithPopup(provider)
+      .then((result) => {
+        console.log(result);
+        dispatch({
+          type: actionTypes.SET_USER,
+          user: result.user,
+        });
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  return (
+    <div className="login">
+      <div className="login__cont flexColumn evenly center">
+        <h1>LOGIN</h1>
+        <form className="login__form flexColumn evenly center">
+          <input
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            placeholder="Your Email"
+          />
+          <input
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            type="password"
+            placeholder="Create a strong Password"
+          />
+        </form>
+        <Button
+          onClick={signIn}
+          variant="outlined"
+          className="auth__btns loginBtn"
+        >
+          LogIn
+        </Button>
+        <Link to="/auth">
+          <Button variant="outlined" className="loginPage">
+            Signup Instead
+          </Button>
+        </Link>
+        <a
+          onClick={continueWithGoogle}
+          className="logIn__googleSignIn flexRow between center pointer"
+        >
+          <img src={GoogleIcon} /> Continue with Google
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

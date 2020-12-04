@@ -79,6 +79,14 @@ img {
   width: 170px;
 }
 
+.account {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  margin-right: 1.5rem;
+  padding: 0.45rem 0.53rem;
+  border-radius: 5px;
+  margin-top: 2px;
+}
+
 .account > h3 {
   font-size: 15.5px;
   color: #575757;
@@ -90,7 +98,21 @@ img {
 .MuiAvatar-root {
   width: 42.5px !important;
   height: 42.5px !important;
-  margin-right: 1.65rem;
+}
+
+.header__loginText {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  margin-right: 1.2rem;
+}
+
+.guestText {
+  color: #494949;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  margin-right: 1.2rem;
 }
 
 .dropdown__flagGlobal {
