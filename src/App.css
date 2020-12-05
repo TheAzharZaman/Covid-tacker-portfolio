@@ -203,6 +203,7 @@ img {
   color: #6c757d;
   font-size: 18px;
   font-weight: 700;
+  text-align: left !important;
 }
 
 .infoCard__plus {
