@@ -17,6 +17,7 @@ import {
 } from "../Files/utilities";
 import { useStateValue } from "../Files/StateProvider";
 import { actionTypes } from "../Files/reducer";
+import Copyright from "../Components/Copyright";
 
 const Homepage = () => {
   let [{ user }, dispatch] = useStateValue();
@@ -36,14 +37,12 @@ const Homepage = () => {
   const [mapZoom, setMapZoom] = React.useState(2.5);
 
   const [graphDuration, setGraphDuration] = React.useState("150");
-  let [userDisplayName, setUserDisplayName] = React.useState("");
 
-  // React.useEffect(() => {
-  //   db.collection("usersData").onSnapshot((snapshot) => {
-  //     // setUserDisplayName(snapshot.docs.userDisplayName);
-  //     console.log(snapshot.userEmail);
-  //   });
-  // });
+  React.useEffect(() => {
+    db.collection("usersData").onSnapshot((snapshot) => {
+      console.log(snapshot.userEmail);
+    });
+  });
 
   React.useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -93,35 +92,39 @@ const Homepage = () => {
   };
 
   React.useEffect(() => {
-    let GraphsDataSwitcher = () => {
-      let CasesSwitch = document.getElementById("graphSwitcher__cases");
+    if (!screenSize.matches) {
+      let GraphsDataSwitcher = () => {
+        let CasesSwitch = document.getElementById("graphSwitcher__cases");
 
-      CasesSwitch.addEventListener("click", () => {
-        CasesSwitch.classList.add("activeButton");
-        RecoveredSwitch.classList.remove("activeButton");
-        DeathsSwitch.classList.remove("activeButton");
-        setGraphDataType("cases");
-      });
+        CasesSwitch.addEventListener("click", () => {
+          CasesSwitch.classList.add("activeButton");
+          RecoveredSwitch.classList.remove("activeButton");
+          DeathsSwitch.classList.remove("activeButton");
+          setGraphDataType("cases");
+        });
 
-      let RecoveredSwitch = document.getElementById("graphSwitcher__recovered");
+        let RecoveredSwitch = document.getElementById(
+          "graphSwitcher__recovered"
+        );
 
-      RecoveredSwitch.addEventListener("click", () => {
-        CasesSwitch.classList.remove("activeButton");
-        RecoveredSwitch.classList.add("activeButton");
-        DeathsSwitch.classList.remove("activeButton");
-        setGraphDataType("recovered");
-      });
+        RecoveredSwitch.addEventListener("click", () => {
+          CasesSwitch.classList.remove("activeButton");
+          RecoveredSwitch.classList.add("activeButton");
+          DeathsSwitch.classList.remove("activeButton");
+          setGraphDataType("recovered");
+        });
 
-      let DeathsSwitch = document.getElementById("graphSwitcher__deaths");
-      DeathsSwitch.addEventListener("click", () => {
-        CasesSwitch.classList.remove("activeButton");
-        RecoveredSwitch.classList.remove("activeButton");
-        DeathsSwitch.classList.add("activeButton");
-        setGraphDataType("deaths");
-      });
-    };
+        let DeathsSwitch = document.getElementById("graphSwitcher__deaths");
+        DeathsSwitch.addEventListener("click", () => {
+          CasesSwitch.classList.remove("activeButton");
+          RecoveredSwitch.classList.remove("activeButton");
+          DeathsSwitch.classList.add("activeButton");
+          setGraphDataType("deaths");
+        });
+      };
 
-    GraphsDataSwitcher();
+      GraphsDataSwitcher();
+    }
   }, []);
 
   const onLogout = () => {
@@ -130,6 +133,8 @@ const Homepage = () => {
       user: null,
     });
   };
+
+  var screenSize = window.matchMedia("(max-width: 1100px)");
 
   return (
     <div className="app flexColumn">
@@ -146,9 +151,9 @@ const Homepage = () => {
 
             <div className="flexRow evenly center">
               <Link
+                to="/auth/login"
                 className="header__loginText"
                 onClick={onLogout}
-                to="/auth/login"
               >
                 {user ? "Logout" : "LogIn"}
               </Link>
@@ -159,11 +164,7 @@ const Homepage = () => {
                 </div>
               ) : null}
 
-              {!user ? (
-                <h3 className="guestText">
-                  {userDisplayName === "" ? "Hello Guest" : userDisplayName}
-                </h3>
-              ) : null}
+              {!user ? <h3 className="guestText">Hello Guest</h3> : null}
 
               <FormControl className="header__dropdown">
                 <Select
@@ -239,30 +240,70 @@ const Homepage = () => {
             countries={mapCountries}
           />
         </div>
-        <Card className="app__right flexColumn">
-          <div className="appRight__top">
-            <h3>Live Cases by Countries</h3>
-            <Table listData={tableListData} />
-          </div>
-          <div className="appRight__bottom">
+        {!screenSize.matches && (
+          <Card className="app__right flexColumn">
+            <div className="appRight__top">
+              <h3>Live Cases by Countries</h3>
+              <Table listData={tableListData} />
+            </div>
+            <div className="appRight__bottom">
+              <LineGraph
+                sideBarGraph
+                graphDataDuration="25"
+                graphTagline="Worldwide New Cases"
+                setGraphType={mapDisplayDataType}
+                needTagline
+                mapTagline="Worldwide New Deaths"
+              />
+            </div>
+          </Card>
+        )}
+      </div>
+      {!screenSize.matches && (
+        <div className="appBottom">
+          <LineGraph
+            needGraphSwitchingButtons
+            setGraphType={graphDataType}
+            graphDataDuration={graphDuration}
+          />
+        </div>
+      )}
+
+      {screenSize.matches && (
+        <div className="appBottom__mobile flexRow evenly center">
+          <Card className="app__right flexColumn">
+            <div className="appRight__top">
+              <h3>Live Cases by Countries</h3>
+              <Table listData={tableListData} />
+            </div>
+            <div className="appRight__bottom">
+              <LineGraph
+                sideBarGraph
+                graphDataDuration="20"
+                graphTagline="Worldwide New Cases"
+                setGraphType={mapDisplayDataType}
+                needTagline
+                mapTagline="Worldwide New Deaths"
+              />
+            </div>
+          </Card>
+          <div className="appBottoms__mobilesGraphs flexColumn center evenly">
             <LineGraph
-              sideBarGraph
-              graphDataDuration="25"
-              graphTagline="Worldwide New Cases"
-              setGraphType={mapDisplayDataType}
               needTagline
-              mapTagline="Worldwide New Deaths"
+              mapTagline="Worldwide new Cases"
+              setGraphType="cases"
+              graphDataDuration="90"
+            />
+            <LineGraph
+              needTagline
+              mapTagline="Worldwide new Deaths"
+              setGraphType="deaths"
+              graphDataDuration="90"
             />
           </div>
-        </Card>
-      </div>
-      <div className="appBottom">
-        <LineGraph
-          needGraphSwitchingButtons
-          setGraphType={graphDataType}
-          graphDataDuration={graphDuration}
-        />
-      </div>
+        </div>
+      )}
+      <Copyright />
     </div>
   );
 };

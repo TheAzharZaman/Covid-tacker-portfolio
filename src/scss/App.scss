@@ -1,14 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
-@import "./generic";
-@import "./header";
-@import "./appStats";
-@import "./map";
-@import "./appRight_top";
-@import "./appRight_bottom";
-@import "./appBottomGraphs";
-
 .app {
   padding: 10px 14px;
 }
@@ -25,3 +17,11 @@
   flex: 0.225 !important;
   margin-right: 8px;
 }
+
+@import "./generic";
+@import "./header";
+@import "./appStats";
+@import "./map";
+@import "./appRight_top";
+@import "./appRight_bottom";
+@import "./appBottomGraphs";

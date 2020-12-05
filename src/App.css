@@ -1,5 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
+.app {
+  padding: 10px 14px;
+}
+
+.app__left {
+  -webkit-box-flex: 0.775;
+      -ms-flex: 0.775;
+          flex: 0.775;
+  padding: 0 1rem 0 0;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+  padding-bottom: 1rem;
+}
+
+.app__right {
+  -webkit-box-flex: 0.225 !important;
+      -ms-flex: 0.225 !important;
+          flex: 0.225 !important;
+  margin-right: 8px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -366,26 +387,5 @@ img {
   max-width: 109% !important;
   overflow-x: hidden;
   height: 230px !important;
-}
-
-.app {
-  padding: 10px 14px;
-}
-
-.app__left {
-  -webkit-box-flex: 0.775;
-      -ms-flex: 0.775;
-          flex: 0.775;
-  padding: 0 1rem 0 0;
-  border-bottom-left-radius: 4px;
-  border-top-left-radius: 4px;
-  padding-bottom: 1rem;
-}
-
-.app__right {
-  -webkit-box-flex: 0.225 !important;
-      -ms-flex: 0.225 !important;
-          flex: 0.225 !important;
-  margin-right: 8px;
 }
 /*# sourceMappingURL=App.css.map */
