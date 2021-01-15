@@ -7,7 +7,7 @@ import Map from "../Components/Map";
 import Table from "../Components/Table";
 import LineGraph from "../Components/LineGraph";
 import { Link } from "react-router-dom";
-import { db } from "../Files/firebase";
+import { auth, db } from "../Files/firebase";
 
 import {
   sortData,
@@ -19,8 +19,8 @@ import { useStateValue } from "../Files/StateProvider";
 import { actionTypes } from "../Files/reducer";
 import Copyright from "../Components/Copyright";
 
-const Homepage = () => {
-  let [{ user }, dispatch] = useStateValue();
+const Homepage = ({ displayName }) => {
+  let [{ currentUser, fetchedUserDetails }, dispatch] = useStateValue();
 
   const [countryNames, setCountryNames] = React.useState([]);
   const [selectedCountry, setSelectedCountry] = React.useState("worldwide");
@@ -37,12 +37,6 @@ const Homepage = () => {
   const [mapZoom, setMapZoom] = React.useState(2.5);
 
   const [graphDuration, setGraphDuration] = React.useState("150");
-
-  React.useEffect(() => {
-    db.collection("usersData").onSnapshot((snapshot) => {
-      console.log(snapshot.userEmail);
-    });
-  });
 
   React.useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -85,9 +79,11 @@ const Homepage = () => {
       .then((response) => response.json())
       .then((data) => {
         setCountryInfo(data);
-
-        setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        console.log("COUNTRY SWITVH FETCHED DATA", data);
         setMapZoom(5);
+        if (data) {
+          setMapCenter([data?.countryInfo.lat, data?.countryInfo.long]);
+        }
       });
   };
 
@@ -128,10 +124,7 @@ const Homepage = () => {
   }, []);
 
   const onLogout = () => {
-    dispatch({
-      type: actionTypes.SET_USER,
-      user: null,
-    });
+    auth.signOut();
   };
 
   var screenSize = window.matchMedia("(max-width: 1100px)");
@@ -150,22 +143,22 @@ const Homepage = () => {
             />
 
             <div className="flexRow evenly center">
-              <Link
-                to="/auth/login"
-                className="header__loginText"
-                onClick={onLogout}
-              >
-                {user ? "Logout" : "LogIn"}
+              <Link className="header__loginText" onClick={onLogout}>
+                {currentUser ? "Logout" : "LogIn"}
               </Link>
-              {user?.photoURL ? (
-                <div className="account flexRow evenly center">
-                  <h3>{user.displayName}</h3>
-                  <Avatar className="pointer" src={user.photoURL} />
+              {fetchedUserDetails && (
+                <h3 className="display__name">
+                  Welcome, {fetchedUserDetails?.displayName}
+                </h3>
+              )}
+
+              {currentUser?.photoURL ? (
+                <div className="account flexRow evenly center pointer">
+                  <h3>{currentUser.displayName}</h3>
+                  <Avatar className="pointer" src={currentUser.photoURL} />
                 </div>
               ) : null}
-
-              {!user ? <h3 className="guestText">Hello Guest</h3> : null}
-
+              {!currentUser ? <h3 className="guestText">Hello Guest</h3> : null}
               <FormControl className="header__dropdown">
                 <Select
                   className="header__dropdownBox"

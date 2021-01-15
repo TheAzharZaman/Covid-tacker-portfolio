@@ -4,41 +4,32 @@ import "./Authentication.css";
 import { Button } from "@material-ui/core";
 import GoogleIcon from "./google.png";
 import { auth, provider, db } from "../Files/firebase";
-import { actionTypes } from "../Files/reducer";
+import firebase from "firebase";
 import { useStateValue } from "../Files/StateProvider";
 
 const Authentication = () => {
-  let history = useHistory();
   const [displayName, setDisplayName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  let [state, dispatch] = useStateValue();
+  let [{ user }, dispatch] = useStateValue();
 
-  const signUp = (e) => {
-    console.log(
-      "Visitors FullName =>",
-      displayName,
-      "Visitors Email =>",
-      email,
-      "Visitors Password",
-      password
-    );
+  let history = useHistory();
 
-    db.collection("usersData").add({
-      userDisplayName: displayName,
-      userEmail: email,
-      userPassword: password,
-    });
-
+  const signUpHandler = async (e) => {
+    e.preventDefault();
     auth
       .createUserWithEmailAndPassword(email, password)
       .then((authResponse) => {
-        console.log(authResponse);
-
-        dispatch({
-          type: actionTypes.SET_USER,
-          user: authResponse.user,
+        db.collection("users").doc(authResponse?.user.uid).set({
+          userID: authResponse?.user.uid,
+          displayName: displayName,
+          email: email,
+          password: password,
+          registeredSince: firebase.firestore.FieldValue.serverTimestamp(),
         });
+        if (authResponse) {
+          history.push("/");
+        }
       })
       .catch((error) => alert(error.message));
   };
@@ -46,13 +37,11 @@ const Authentication = () => {
   const continueWithGoogle = () => {
     auth
       .signInWithPopup(provider)
-      .then((result) => {
-        console.log(result);
-
-        dispatch({
-          type: actionTypes.SET_USER,
-          user: result.user,
-        });
+      .then((user) => {
+        console.log("Google Signed In User =>>>", user);
+        if (user) {
+          history.push("/");
+        }
       })
       .catch((error) => alert(error.message));
   };
@@ -62,7 +51,7 @@ const Authentication = () => {
       <div className="authentication__cont flexColumn between center">
         <h1 className="auth__taglineUp">SIGNUP</h1>
 
-        <form className="flexColumn evenly center">
+        <form onSubmit={signUpHandler} className="flexColumn evenly center">
           <input
             value={displayName}
             onChange={(e) => setDisplayName(e.target.value)}
@@ -81,15 +70,9 @@ const Authentication = () => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Create a strong Password"
           />
+          <input className="auth__btns signup" type="submit" value="SignUp" />
         </form>
         <div className="authAction__btns flexColumn evenly center">
-          <Button
-            onClick={signUp}
-            variant="outlined"
-            className="auth__btns signup"
-          >
-            SignUp
-          </Button>
           <Link to="/auth/login">
             <Button variant="outlined" className="auth__btns login">
               LogIn Instead

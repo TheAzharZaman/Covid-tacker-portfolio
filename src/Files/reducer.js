@@ -1,5 +1,6 @@
 export const initialState = {
-  user: null,
+  currentUser: null,
+  fetchedUserDetails: null,
 };
 
 export const actionTypes = {
@@ -7,15 +8,20 @@ export const actionTypes = {
 };
 
 const reducer = (state, action) => {
-  console.log(action);
   switch (action.type) {
     case actionTypes.SET_USER:
       return {
         ...state,
-        user: action.user,
+        currentUser: action.user,
       };
     default:
       return state;
+
+    case "SET_FETCHED_DETAILS":
+      return {
+        ...state,
+        fetchedUserDetails: action.fetchedData,
+      };
   }
 };
 

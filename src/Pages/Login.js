@@ -8,10 +8,11 @@ import { auth, provider } from "../Files/firebase";
 import { useStateValue } from "../Files/StateProvider";
 
 const Login = () => {
-  let history = useHistory();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  let [state, dispatch] = useStateValue();
+  let [{}, dispatch] = useStateValue();
+
+  let history = useHistory();
 
   let signIn = () => {
     console.log("Visitors Email =>", email, "Visitors Password", password);
@@ -19,12 +20,9 @@ const Login = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((authResponse) => {
-        console.log(authResponse);
-
-        dispatch({
-          type: actionTypes.SET_USER,
-          user: authResponse.user,
-        });
+        if (authResponse) {
+          history.push("/");
+        }
       })
       .catch((error) => alert(error.message));
   };
