@@ -1,4 +1,4 @@
-# Covid-19 Tacker
+# COVID-19 Tacker
 
 ## Technologies Used:
 1) JavaScript(ES6+) HTML5/CSS3(SASS)
