@@ -8,7 +8,6 @@ import Table from "../Components/Table";
 import LineGraph from "../Components/LineGraph";
 import { Link } from "react-router-dom";
 import { auth, db } from "../Files/firebase";
-
 import {
   sortData,
   NormalFiguresToCommas,
@@ -17,7 +16,7 @@ import {
 } from "../Files/utilities";
 import { useStateValue } from "../Files/StateProvider";
 import { actionTypes } from "../Files/reducer";
-import Copyright from "../Components/Copyright";
+// import Copyright from "../Components/Copyright";
 
 const Homepage = ({ displayName }) => {
   let [{ currentUser, fetchedUserDetails }, dispatch] = useStateValue();
@@ -296,7 +295,7 @@ const Homepage = ({ displayName }) => {
           </div>
         </div>
       )}
-      <Copyright />
+      {/* <Copyright /> */}
     </div>
   );
 };
